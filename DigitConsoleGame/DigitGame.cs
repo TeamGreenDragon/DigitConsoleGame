@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading.Tasks;
 
 class DigitGame
-{
+{ // comment
     static public int i = 1, j = 1;
     static public int swapVar;
     static int moves = 0;
