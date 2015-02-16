@@ -16,9 +16,12 @@
 
 	•	PROJECT EXPLANATION
 	
-	The goal of the game is to reorder the given matrix of digits in increasing line (1 to 8) by moving the digits with the keyboard arrows. 
-	The player should try to reorder the digits by using as few movements as possible. At the start of the game the player’s name is taken.  
-	The name and movements made by the player are stored and available for viewing.  During the game the player can either start new game or quit.
+	The goal of the game is to reorder the given matrix of digits in increasing line (1 to 8) by moving the digits
+	with the keyboard arrows. 
+	The player should try to reorder the digits by using as few movements as possible. 
+	At the start of the game the player’s name is taken.  
+	The name and movements made by the player are stored and available for viewing. 
+	During the game the player can either start new game or quit.
 
 	•	URL OF GIT REPOSITORY
 	
