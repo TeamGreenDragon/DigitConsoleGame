@@ -12,6 +12,45 @@ class DigitGame
     static int moves = 0;
     static string Name;
     static public int[,] array = new int[3, 3];
+    static public string path = "score.txt";
+
+    public static void PrintScores()
+    {
+        Console.Clear();
+        Console.WriteLine(new string('=', 12).PadLeft(15, ' '));
+        Console.WriteLine("=SCOREBOARD=".PadLeft(15, ' '));
+        Console.WriteLine(new string('=', 12).PadLeft(15, ' '));
+        Console.WriteLine();
+        Console.Write("Name".PadRight(15));
+        Console.WriteLine("Score");
+        int position = 1;
+        List<string> scoreList = File.ReadAllLines(path).ToList();
+        foreach (string separateScore in scoreList)
+        {
+            if (position <= 10)
+            {
+                Console.WriteLine(position.ToString().PadLeft(2, ' ') + ". " + separateScore);
+            }
+
+            position++;
+        }
+    }
+
+    public static void ScoreRecords(int score, string name)
+    {
+        List<string> scoreList;
+        if (File.Exists(path))
+        {
+            scoreList = File.ReadAllLines(path).ToList();
+        }
+        else
+        {
+            scoreList = new List<string>();
+        }
+        scoreList.Add(name.PadRight(10, ' ') + "\t" + score.ToString());
+        var sortedScoreList = scoreList.OrderBy(ss => int.Parse(ss.Substring(ss.LastIndexOf("\t") + 1)));
+        File.WriteAllLines(path, sortedScoreList.ToArray());
+    }
 
     static public void keys()
     {
@@ -99,7 +138,7 @@ class DigitGame
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\n\n\t\tCongratulations, {0}! You win!", Name);
-
+            ScoreRecords(moves, Name);
             Console.WriteLine("\n\t\tPress Q for exit, N for new game");
         }
     }
@@ -112,6 +151,8 @@ class DigitGame
             move = Console.ReadKey();
             if (move.Key == ConsoleKey.Y)
             {
+                ScoreRecords(moves, Name);
+                PrintScores();
                 Environment.Exit(0);
             }
             if (move.Key == ConsoleKey.N)
@@ -121,6 +162,7 @@ class DigitGame
         }
         else if (move.Key == ConsoleKey.N)
         {
+            ScoreRecords(moves, Name);
             moves = 0;
             init();
             values();
