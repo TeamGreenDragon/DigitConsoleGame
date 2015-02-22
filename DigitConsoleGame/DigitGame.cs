@@ -162,7 +162,7 @@ class DigitGame
         }
         else if (move.Key == ConsoleKey.N)
         {
-            ScoreRecords(moves, Name);
+            // ScoreRecords(moves, Name);
             moves = 0;
             init();
             values();
