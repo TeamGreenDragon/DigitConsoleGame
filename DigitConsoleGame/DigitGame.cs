@@ -17,10 +17,10 @@ class DigitGame
     public static void PrintScores()
     {
         Console.Clear();
-        string score = System.IO.File.ReadAllText(@"ScoreboardImage.txt");
+        string score = System.IO.File.ReadAllText(@"..\..\Images\ScoreboardImage.txt");
         Console.Write(score);
         Console.Write("Name".PadRight(15));
-        Console.WriteLine("Score");
+        Console.WriteLine("Number of Attempts");
         int position = 1;
         List<string> scoreList = File.ReadAllLines(path).ToList();
         foreach (string separateScore in scoreList)
@@ -50,7 +50,7 @@ class DigitGame
         File.WriteAllLines(path, sortedScoreList.ToArray());
     }
 
-    static public void keys()
+    static public void Keys()
     {
         try
         {
@@ -62,12 +62,11 @@ class DigitGame
                     {
                         ConsoleKeyInfo move;
                         move = Console.ReadKey();
-                        ends(move);
+                        Ends(move);
                         switch (move.Key)
                         {
                             case ConsoleKey.LeftArrow:
-
-                                //Console.Clear();
+                               
                                 swapVar = array[i, j];
                                 array[i, j] = array[i, j - 1];
                                 array[i, j - 1] = swapVar;
@@ -75,7 +74,7 @@ class DigitGame
                                 moves++;
                                 break;
                             case ConsoleKey.UpArrow:
-                                //Console.Clear();
+                                
                                 swapVar = array[i, j];
                                 array[i, j] = array[i - 1, j];
                                 array[i - 1, j] = swapVar;
@@ -83,7 +82,7 @@ class DigitGame
                                 moves++;
                                 break;
                             case ConsoleKey.DownArrow:
-                                //Console.Clear();
+                                
                                 swapVar = array[i, j];
                                 array[i, j] = array[i + 1, j];
                                 array[i + 1, j] = swapVar;
@@ -91,97 +90,56 @@ class DigitGame
                                 moves++;
                                 break;
                             case ConsoleKey.RightArrow:
-                                //Console.Clear();
+                                
                                 swapVar = array[i, j];
                                 array[i, j] = array[i, j + 1];
                                 array[i, j + 1] = swapVar;
                                 j = j + 1;
-                                moves++;break;
+                                moves++;
+                                break;
                             default:
                                 throw new ArgumentException("Invalid key");
-
                         }
-                        values();
-                        check();
+                        Values();
+                        Check();
                     }
                 }
             }
         }
         catch (ArgumentException)//Exeption for invalid key
         {
-            Console.WriteLine("Invalid movement");
-            keys();
-            //Console.Clear();
-            //Console.ForegroundColor = ConsoleColor.Cyan;
-            //Console.WriteLine("Invalid key ");
-            //Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            //Console.WriteLine("\nyou  press Enter to return or PRESS 'Q' for exit.");
-            //{
-            //    ConsoleKeyInfo exit;
-            //    exit = Console.ReadKey();
-            //    if (exit.Key == ConsoleKey.Enter)
-            //    {
-            //        values();
-            //        keys();
-            //    }
-            //    if (exit.Key == ConsoleKey.Q)
-            //    {
-            //        Environment.Exit(0);
-
-            //    }
-            //    else values(); keys();
-
-            //}
+            Console.WriteLine("Invalid Key.Use only Arrrow Keys.");
+            Keys();
         }
-        catch(IndexOutOfRangeException)//Exeption for Invalid movement
+        catch (IndexOutOfRangeException)//Exeption for Invalid movement
         {
-            Console.WriteLine("Invalid movement");
-            keys();
-            //Console.Clear();
-            //Console.ForegroundColor = ConsoleColor.Cyan;
-            //Console.WriteLine("Invalid Movement");
-            //Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            //Console.WriteLine("\nyou  press Any Key to return or PRESS 'Q' for exit.");
-            //{
-            //    ConsoleKeyInfo exit;
-            //    exit = Console.ReadKey();
-            //    if (exit.Key == ConsoleKey.Enter)
-            //    {
-            //        values();
-            //        keys();
-            //    }
-            //    if (exit.Key == ConsoleKey.Q)
-            //    {
-            //        Environment.Exit(0);
-
-            //    }
-            //    else values(); keys();
-
+            Console.WriteLine("Invalid movement.");
+            Keys();
             
         }
     }
         
-        static public void init() // Sets initial values in the array
-        {
-            array[0, 0] = 1;
-            array[0, 1] = 4;
-            array[0, 2] = 2;
-            array[1, 0] = 3;
-            array[1, 1] = 5;
-            array[1, 2] = 8;
-            array[2, 0] = 6;
-            array[2, 1] = 7;
-            array[2, 2] = 0;
-        }
+    static public void Initialize() // Sets initial values in the array
+    {
+        array[0, 0] = 1;
+        array[0, 1] = 4;
+        array[0, 2] = 2;
+        array[1, 0] = 3;
+        array[1, 1] = 5;
+        array[1, 2] = 8;
+        array[2, 0] = 6;
+        array[2, 1] = 7;
+        array[2, 2] = 0;
+    }
     
-    static public void check()
+    static public void Check()
     {
         if (array[0, 0] == 0 && array[0, 1] == 1 && array[0, 2] == 2 && array[1, 0] == 3 && array[1, 1] == 4 && array[1, 2] == 5 && array[2, 0] == 6 && array[2, 1] == 7 && array[2, 2] == 8)
         {
             Console.Clear();
             //You Win!
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            string text = System.IO.File.ReadAllText(@"Win.txt");
+            Console.ForegroundColor = ConsoleColor.Green;
+            string text = System.IO.File.ReadAllText(@"..\..\Images\Win.txt");
             Console.WriteLine(text);
             Console.WriteLine("\n\nCongratulations, {0}! You win!", Name);
             ScoreRecords(moves, Name);
@@ -189,7 +147,7 @@ class DigitGame
         }
     }
 
-    static void ends(ConsoleKeyInfo move)
+    static void Ends(ConsoleKeyInfo move)
     {
         if (move.Key == ConsoleKey.Q)
         {
@@ -202,32 +160,33 @@ class DigitGame
             }
             if (move.Key == ConsoleKey.N)
             {
-                values();
+                Values();
             }
         }
         else if (move.Key == ConsoleKey.N)
         {
             moves = 0;
-            init();
-            values();
-            keys();
+            Initialize();
+            Values();
+            Keys();
         }
     }
 
-    static public void show()
+    static public void Show()
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("\nPress Q for exit, N for new game");
     }
 
-    static public void values()
+    static public void Values()
     {
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Green;
+        
         Console.WriteLine("\n\n\tNumber of attempts ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.WriteLine("\n\t\t" + moves);
-        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("\n\n\t\t" + new string('-', 50) + "\n\n");
         Console.ForegroundColor = ConsoleColor.Red;
 
@@ -242,25 +201,25 @@ class DigitGame
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.Write("{0,20}", array[i, j]);
                 }
             }
             Console.WriteLine("\n");
         }
-        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("\n\n\t\t" + new string('-', 50));
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("\n\n\t\t\t\t\t\t\tAll The Best ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.WriteLine("\n\t\t\t\t\t\t\t  " + Name);
-        show();
+        Show();
     }
 
     static void Main()
     {
         //game name title
-        string title = System.IO.File.ReadAllText(@"Title.txt");
+        string title = System.IO.File.ReadAllText(@"..\..\Images\Title.txt");
         Console.WriteLine(title);
 
         Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -270,11 +229,12 @@ class DigitGame
         Console.WriteLine("Please, Enter your name:");
         Console.ForegroundColor = ConsoleColor.Red;
         Name = Console.ReadLine();
+        
 
-        init();
-        values();
-        keys();
-        //values();
+        Initialize();
+        Values();
+        Keys();
         Console.ReadLine();
     }
+    
 }
