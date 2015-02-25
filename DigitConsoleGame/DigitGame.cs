@@ -17,10 +17,8 @@ class DigitGame
     public static void PrintScores()
     {
         Console.Clear();
-        Console.WriteLine(new string('=', 12).PadLeft(15, ' '));
-        Console.WriteLine("=SCOREBOARD=".PadLeft(15, ' '));
-        Console.WriteLine(new string('=', 12).PadLeft(15, ' '));
-        Console.WriteLine();
+        string score = System.IO.File.ReadAllText(@"ScoreboardImage.txt");
+        Console.Write(score);
         Console.Write("Name".PadRight(15));
         Console.WriteLine("Score");
         int position = 1;
