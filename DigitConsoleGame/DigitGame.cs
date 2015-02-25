@@ -62,6 +62,7 @@ class DigitGame
                     while (array[i, j] == 0)
                     {
                         ConsoleKeyInfo move;
+                        Console.Beep();
                         move = Console.ReadKey();
                         Ends(move);
                         switch (move.Key)
