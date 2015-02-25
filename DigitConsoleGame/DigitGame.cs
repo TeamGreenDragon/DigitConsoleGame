@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
+using System.Media;
 
 class DigitGame
 { 
@@ -140,6 +141,9 @@ class DigitGame
             //You Win!
             Console.ForegroundColor = ConsoleColor.Green;
             string text = System.IO.File.ReadAllText(@"..\..\Images\Win.txt");
+            //sound 
+            SoundPlayer simpleSound = new SoundPlayer(@"..\..\champions.wav");
+            simpleSound.Play();
             Console.WriteLine(text);
             Console.WriteLine("\n\nCongratulations, {0}! You win!", Name);
             ScoreRecords(moves, Name);
@@ -219,9 +223,9 @@ class DigitGame
     static void Main()
     {
         //game name title
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
         string title = System.IO.File.ReadAllText(@"..\..\Images\Title.txt");
         Console.WriteLine(title);
-
         Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.WriteLine("Game Rules:\nArrange the numbers from 0-8 in right order by pressing the arrow keys.");
         Console.ForegroundColor = ConsoleColor.Green;
