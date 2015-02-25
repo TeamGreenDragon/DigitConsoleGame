@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 class DigitGame
 { 
-    static public int i = 2, j =2;
+    static public int i = 2, j = 2;
     static public int swapVar;
     static int moves = 0;
     static string Name;
@@ -52,9 +52,13 @@ class DigitGame
 
     static public void keys()
     {
-        i = 2; j = 2;
-        
-                    while (true)
+        try
+        {
+            for (i = 0; i < 3; i++)
+            {
+                for (j = 0; j < 3; j++)
+                {
+                    while (array[i, j] == 0)
                     {
                         ConsoleKeyInfo move;
                         move = Console.ReadKey();
@@ -63,74 +67,115 @@ class DigitGame
                         {
                             case ConsoleKey.LeftArrow:
 
-                                if (j > 0)
-                                {
-                                    Console.Clear();
-                                    swapVar = array[i, j];
-                                    array[i, j] = array[i, j - 1];
-                                    array[i, j - 1] = swapVar;
-                                    j = j - 1;
-                                    moves++;
-                                }
+                                //Console.Clear();
+                                swapVar = array[i, j];
+                                array[i, j] = array[i, j - 1];
+                                array[i, j - 1] = swapVar;
+                                j = j - 1;
+                                moves++;
                                 break;
                             case ConsoleKey.UpArrow:
-                                if (i > 0)
-                                {
-                                    Console.Clear();
-                                    swapVar = array[i, j];
-                                    array[i, j] = array[i - 1, j];
-                                    array[i - 1, j] = swapVar;
-                                    i = i - 1;
-                                    moves++;
-                                }
+                                //Console.Clear();
+                                swapVar = array[i, j];
+                                array[i, j] = array[i - 1, j];
+                                array[i - 1, j] = swapVar;
+                                i = i - 1;
+                                moves++;
                                 break;
                             case ConsoleKey.DownArrow:
-                                if (i < 2)
-                                {
-                                    Console.Clear();
-                                    swapVar = array[i, j];
-                                    array[i, j] = array[i + 1, j];
-                                    array[i + 1, j] = swapVar;
-                                    i = i + 1;
-                                    moves++;
-                                }
+                                //Console.Clear();
+                                swapVar = array[i, j];
+                                array[i, j] = array[i + 1, j];
+                                array[i + 1, j] = swapVar;
+                                i = i + 1;
+                                moves++;
                                 break;
                             case ConsoleKey.RightArrow:
-                                if (j < 2)
-                                {
-                                    Console.Clear();
-                                    swapVar = array[i, j];
-                                    array[i, j] = array[i, j + 1];
-                                    array[i, j + 1] = swapVar;
-                                    j = j + 1;
-                                    moves++;
-                                }
-                                break;
-                            
+                                //Console.Clear();
+                                swapVar = array[i, j];
+                                array[i, j] = array[i, j + 1];
+                                array[i, j + 1] = swapVar;
+                                j = j + 1;
+                                moves++;break;
+                            default:
+                                throw new ArgumentException("Invalid key");
+
                         }
-                        values();                        
+                        values();
                         check();
-                   
-                     }
+                    }
+                }
+            }
+        }
+        catch (ArgumentException)//Exeption for invalid key
+        {
+            Console.WriteLine("Invalid movement");
+            keys();
+            //Console.Clear();
+            //Console.ForegroundColor = ConsoleColor.Cyan;
+            //Console.WriteLine("Invalid key ");
+            //Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            //Console.WriteLine("\nyou  press Enter to return or PRESS 'Q' for exit.");
+            //{
+            //    ConsoleKeyInfo exit;
+            //    exit = Console.ReadKey();
+            //    if (exit.Key == ConsoleKey.Enter)
+            //    {
+            //        values();
+            //        keys();
+            //    }
+            //    if (exit.Key == ConsoleKey.Q)
+            //    {
+            //        Environment.Exit(0);
+
+            //    }
+            //    else values(); keys();
+
+            //}
+        }
+        catch(IndexOutOfRangeException)//Exeption for Invalid movement
+        {
+            Console.WriteLine("Invalid movement");
+            keys();
+            //Console.Clear();
+            //Console.ForegroundColor = ConsoleColor.Cyan;
+            //Console.WriteLine("Invalid Movement");
+            //Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            //Console.WriteLine("\nyou  press Any Key to return or PRESS 'Q' for exit.");
+            //{
+            //    ConsoleKeyInfo exit;
+            //    exit = Console.ReadKey();
+            //    if (exit.Key == ConsoleKey.Enter)
+            //    {
+            //        values();
+            //        keys();
+            //    }
+            //    if (exit.Key == ConsoleKey.Q)
+            //    {
+            //        Environment.Exit(0);
+
+            //    }
+            //    else values(); keys();
+
+            
+        }
+    }
         
-    }
-
-    static public void init() // Sets initial values in the array
-    {
-        array[0, 0] = 1;
-        array[0, 1] = 4;
-        array[0, 2] = 2;
-        array[1, 0] = 3;
-        array[1, 1] = 5;
-        array[1, 2] = 8;
-        array[2, 0] = 6;
-        array[2, 1] = 7;
-        array[2, 2] = 0;
-    }
-
+        static public void init() // Sets initial values in the array
+        {
+            array[0, 0] = 1;
+            array[0, 1] = 4;
+            array[0, 2] = 2;
+            array[1, 0] = 3;
+            array[1, 1] = 5;
+            array[1, 2] = 8;
+            array[2, 0] = 6;
+            array[2, 1] = 7;
+            array[2, 2] = 0;
+        }
+    
     static public void check()
     {
-        
         if (array[0, 0] == 0 && array[0, 1] == 1 && array[0, 2] == 2 && array[1, 0] == 3 && array[1, 1] == 4 && array[1, 2] == 5 && array[2, 0] == 6 && array[2, 1] == 7 && array[2, 2] == 8)
         {
             Console.Clear();
@@ -152,7 +197,6 @@ class DigitGame
             move = Console.ReadKey();
             if (move.Key == ConsoleKey.Y)
             {
-                
                 PrintScores();
                 Environment.Exit(0);
             }
@@ -163,13 +207,11 @@ class DigitGame
         }
         else if (move.Key == ConsoleKey.N)
         {
-            
             moves = 0;
             init();
             values();
             keys();
         }
-        
     }
 
     static public void show()
@@ -218,8 +260,8 @@ class DigitGame
     static void Main()
     {
         //game name title
-         string title = System.IO.File.ReadAllText(@"Title.txt");
-         Console.WriteLine(title);
+        string title = System.IO.File.ReadAllText(@"Title.txt");
+        Console.WriteLine(title);
 
         Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.WriteLine("Game Rules:\nArrange the numbers from 0-8 in right order by pressing the arrow keys.");
