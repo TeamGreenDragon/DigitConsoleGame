@@ -12,7 +12,7 @@ class DigitGame
     static int moves = 0;
     static string Name;
     static public int[,] array = new int[3, 3];
-    static public string path = "score.txt";
+    static public string path = "scores.txt";
 
     public static void PrintScores()
     {
@@ -136,10 +136,13 @@ class DigitGame
         if (array[0, 0] == 0 && array[0, 1] == 1 && array[0, 2] == 2 && array[1, 0] == 3 && array[1, 1] == 4 && array[1, 2] == 5 && array[2, 0] == 6 && array[2, 1] == 7 && array[2, 2] == 8)
         {
             Console.Clear();
+            //You Win!
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("\n\n\t\tCongratulations, {0}! You win!", Name);
+            string text = System.IO.File.ReadAllText(@"Win.txt");
+            Console.WriteLine(text);
+            Console.WriteLine("\n\nCongratulations, {0}! You win!", Name);
             ScoreRecords(moves, Name);
-            Console.WriteLine("\n\t\tPress Q for exit, N for new game");
+            Console.WriteLine("\nPress Q for exit, N for new game");
         }
     }
 
@@ -147,11 +150,11 @@ class DigitGame
     {
         if (move.Key == ConsoleKey.Q)
         {
-            Console.WriteLine("\ndo you want to exit (Y/N)");
+            Console.WriteLine("\nDo you want to exit (Y/N)");
             move = Console.ReadKey();
             if (move.Key == ConsoleKey.Y)
             {
-                ScoreRecords(moves, Name);
+                
                 PrintScores();
                 Environment.Exit(0);
             }
@@ -162,7 +165,7 @@ class DigitGame
         }
         else if (move.Key == ConsoleKey.N)
         {
-            // ScoreRecords(moves, Name);
+            
             moves = 0;
             init();
             values();
@@ -181,7 +184,7 @@ class DigitGame
     {
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("\n\n\tnumber of attempts ");
+        Console.WriteLine("\n\n\tNumber of attempts ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.WriteLine("\n\t\t" + moves);
         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -217,6 +220,9 @@ class DigitGame
     static void Main()
     {
         //game name title
+         string title = System.IO.File.ReadAllText(@"Title.txt");
+         Console.WriteLine(title);
+
         Console.ForegroundColor = ConsoleColor.DarkGray;
         Console.WriteLine("Game Rules:\nArrange the numbers from 0-8 in right order by pressing the arrow keys.");
         Console.ForegroundColor = ConsoleColor.Green;
