@@ -117,7 +117,6 @@ class DigitGame
         {
             Console.WriteLine("Invalid movement.");
             Keys();
-            
         }
     }
         
@@ -125,16 +124,15 @@ class DigitGame
 
     static void Shuffle<T>(T[] array)
     {
-        int n=array.Length;
+        int n = array.Length;
         for (int i = 0; i < n; i++)
-			{
-			 int r=i + (int)(random.NextDouble() * (n - i));
+        {
+            int r = i + (int)(random.NextDouble() * (n - i));
             T t = array[r];
-	        array[r] = array[i];
-	        array[i] = t;
-	         }
+            array[r] = array[i];
+            array[i] = t;
+        }
     }
-
 
     static public void InitializeEasy() // Sets initial values in the array
     {
@@ -148,9 +146,21 @@ class DigitGame
         array[2, 1] = 7;
         array[2, 2] = 0;
     }
+
     static public void InitializeHard() // Sets initial values in the array
     {
-        int[] values = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        int[] values =
+        {
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+        };
         Shuffle(values);
         foreach (int value in values)
         {
@@ -159,7 +169,6 @@ class DigitGame
                 array[i % 3, i / 3] = values[i];
             }
         }
-      
     }
   
     static public void Check()
@@ -188,7 +197,6 @@ class DigitGame
             move = Console.ReadKey();
             if (move.Key == ConsoleKey.Y)
             {
-                ScoreRecords(moves, Name);
                 PrintScores();
                 Environment.Exit(0);
             }
@@ -201,17 +209,8 @@ class DigitGame
         {
             moves = 0;
             Console.WriteLine();
-            Console.WriteLine("Press e for easy game and h for hard mode.");
-            char modeChoice = char.Parse(Console.ReadLine());
-
-            if (modeChoice == 'e')
-            {
-                InitializeEasy();
-            }
-            else if (modeChoice == 'h')
-            {
-                InitializeHard();
-            }
+            Console.WriteLine("Press E for easy game and H for hard mode.");
+            Choise();
             Values();
             Keys();
         }
@@ -260,11 +259,23 @@ class DigitGame
         Console.WriteLine("\n\t\t\t\t\t\t\t  " + Name);
         Show();
     }
-
+    static public void Choise()
+    {
+        ConsoleKeyInfo modeChoice;
+        modeChoice = Console.ReadKey();
+        if (modeChoice.Key == ConsoleKey.E)
+        {
+            InitializeEasy();
+        }
+        else if (modeChoice.Key==ConsoleKey.H)
+        {
+            InitializeHard();
+        }
+    }
     static void Main()
     {
         //game name title
-        Console.ForegroundColor = ConsoleColor.DarkGreen;
+        Console.ForegroundColor = ConsoleColor.Green;
         string title = System.IO.File.ReadAllText(@"..\..\Images\Title.txt");
         Console.WriteLine(title);
         Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -274,23 +285,10 @@ class DigitGame
         Console.WriteLine("Please, Enter your name:");
         Console.ForegroundColor = ConsoleColor.Red;
         Name = Console.ReadLine();
-        Console.WriteLine("Press e for easy game and h for hard mode.");
-        char modeChoice = char.Parse(Console.ReadLine());
-
-        if (modeChoice=='e')
-        {
-            InitializeEasy();
-        }
-        else if (modeChoice=='h')
-        {
-            InitializeHard();
-        }
-        
-
-        
+        Console.WriteLine("Press E for easy game and H for hard mode.");
+        Choise();
         Values();
         Keys();
         Console.ReadLine();
     }
-    
 }
