@@ -13,7 +13,7 @@ class DigitGame
     static int moves = 0;
     static string Name;
     static public int[,] array = new int[3, 3];
-    static public string path = "scores.txt";
+    static public string path = @"..\..\Images\scores.txt";
 
     public static void PrintScores()
     {
@@ -188,6 +188,7 @@ class DigitGame
             move = Console.ReadKey();
             if (move.Key == ConsoleKey.Y)
             {
+                ScoreRecords(moves, Name);
                 PrintScores();
                 Environment.Exit(0);
             }
