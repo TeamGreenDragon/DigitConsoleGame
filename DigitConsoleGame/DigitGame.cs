@@ -121,7 +121,22 @@ class DigitGame
         }
     }
         
-    static public void Initialize() // Sets initial values in the array
+    static Random random = new Random();
+
+    static void Shuffle<T>(T[] array)
+    {
+        int n=array.Length;
+        for (int i = 0; i < n; i++)
+			{
+			 int r=i + (int)(random.NextDouble() * (n - i));
+            T t = array[r];
+	        array[r] = array[i];
+	        array[i] = t;
+	         }
+    }
+
+
+    static public void InitializeEasy() // Sets initial values in the array
     {
         array[0, 0] = 1;
         array[0, 1] = 4;
@@ -133,7 +148,20 @@ class DigitGame
         array[2, 1] = 7;
         array[2, 2] = 0;
     }
-    
+    static public void InitializeHard() // Sets initial values in the array
+    {
+        int[] values = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        Shuffle(values);
+        foreach (int value in values)
+        {
+            for (int i = 0; i < values.Length; i++)
+            {
+                array[i % 3, i / 3] = values[i];
+            }
+        }
+      
+    }
+  
     static public void Check()
     {
         if (array[0, 0] == 0 && array[0, 1] == 1 && array[0, 2] == 2 && array[1, 0] == 3 && array[1, 1] == 4 && array[1, 2] == 5 && array[2, 0] == 6 && array[2, 1] == 7 && array[2, 2] == 8)
@@ -171,7 +199,18 @@ class DigitGame
         else if (move.Key == ConsoleKey.N)
         {
             moves = 0;
-            Initialize();
+            Console.WriteLine();
+            Console.WriteLine("Press e for easy game and h for hard mode.");
+            char modeChoice = char.Parse(Console.ReadLine());
+
+            if (modeChoice == 'e')
+            {
+                InitializeEasy();
+            }
+            else if (modeChoice == 'h')
+            {
+                InitializeHard();
+            }
             Values();
             Keys();
         }
@@ -234,9 +273,20 @@ class DigitGame
         Console.WriteLine("Please, Enter your name:");
         Console.ForegroundColor = ConsoleColor.Red;
         Name = Console.ReadLine();
+        Console.WriteLine("Press e for easy game and h for hard mode.");
+        char modeChoice = char.Parse(Console.ReadLine());
+
+        if (modeChoice=='e')
+        {
+            InitializeEasy();
+        }
+        else if (modeChoice=='h')
+        {
+            InitializeHard();
+        }
         
 
-        Initialize();
+        
         Values();
         Keys();
         Console.ReadLine();
