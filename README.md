@@ -44,5 +44,6 @@
 		Project documentation
 		
 		OPTIONAL REQUIREMENTS
+	 Sound effects during the gameplay
 
 		
