@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Media;
 
 class DigitGame
-{ 
+{
     static public int i = 2, j = 2;
     static public int swapVar;
     static int moves = 0;                       // Counts the moves 
@@ -21,10 +21,10 @@ class DigitGame
         string score = System.IO.File.ReadAllText(@"..\..\Images\ScoreboardImage.txt");
         Console.Write(score);
         Console.Write("Name".PadRight(15));
-        Console.WriteLine("Number of Attempts");
+        Console.WriteLine("Number of attempts: ");
         int position = 1;
         List<string> scoreList = File.ReadAllLines(path).ToList();  // Reads the scores from the text file
-        foreach (string separateScore in scoreList)                
+        foreach (string separateScore in scoreList)
         {
             if (position <= 10)                                      //... and displays the first 10 of them
             {
@@ -68,7 +68,7 @@ class DigitGame
                         switch (move.Key)                           // if the game continues, reads the next move
                         {
                             case ConsoleKey.LeftArrow:              // <-
-                               
+
                                 swapVar = array[i, j];
                                 array[i, j] = array[i, j - 1];
                                 array[i, j - 1] = swapVar;
@@ -76,7 +76,7 @@ class DigitGame
                                 moves++;
                                 break;
                             case ConsoleKey.UpArrow:                // ^
-                                
+
                                 swapVar = array[i, j];
                                 array[i, j] = array[i - 1, j];
                                 array[i - 1, j] = swapVar;
@@ -84,7 +84,7 @@ class DigitGame
                                 moves++;
                                 break;
                             case ConsoleKey.DownArrow:              // v
-                                
+
                                 swapVar = array[i, j];
                                 array[i, j] = array[i + 1, j];
                                 array[i + 1, j] = swapVar;
@@ -92,7 +92,7 @@ class DigitGame
                                 moves++;
                                 break;
                             case ConsoleKey.RightArrow:             // ->
-                                
+
                                 swapVar = array[i, j];
                                 array[i, j] = array[i, j + 1];
                                 array[i, j + 1] = swapVar;
@@ -119,7 +119,7 @@ class DigitGame
             Keys();
         }
     }
-        
+
     static Random random = new Random();
 
     static void Shuffle<T>(T[] array)                       //Shuffles the numbers for the hard level
@@ -170,7 +170,7 @@ class DigitGame
             }
         }
     }
-  
+
     static public void Check()              //Check if the player wins the game, displays Congrats screen, plays sound
     {
         if (array[0, 0] == 0 && array[0, 1] == 1 && array[0, 2] == 2 && array[1, 0] == 3 && array[1, 1] == 4 && array[1, 2] == 5 && array[2, 0] == 6 && array[2, 1] == 7 && array[2, 2] == 8)
@@ -185,7 +185,7 @@ class DigitGame
             Console.WriteLine(text);
             Console.WriteLine("\n\nCongratulations, {0}! You win!", Name);
             ScoreRecords(moves, Name);
-            Console.WriteLine("\nPress Q for exit, N for new game");
+            Console.WriteLine("\nPress Q to exit or N for new game.");
         }
     }
 
@@ -193,12 +193,12 @@ class DigitGame
     {
         if (move.Key == ConsoleKey.Q)
         {
-            Console.WriteLine("\nDo you want to exit (Y/N)");
+            Console.WriteLine("\nDo you want to exit? (Y/N)");
             move = Console.ReadKey();
             if (move.Key == ConsoleKey.Y)
             {
                 PrintScores();
-               // Console.ReadKey();
+                // Console.ReadKey();
                 Environment.Exit(0);
             }
             if (move.Key == ConsoleKey.N)
@@ -210,7 +210,7 @@ class DigitGame
         {
             moves = 0;
             Console.WriteLine();
-            Console.WriteLine("Press E for easy game and H for hard mode.");
+            Console.WriteLine("Press E for an easy game and H for hard mode.");
             Choise();
             Values();
             Keys();
@@ -220,15 +220,15 @@ class DigitGame
     static public void Show()           // Shows the text "Press Q for exit, N for new game"
     {
         Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("\nPress Q for exit, N for new game");
+        Console.WriteLine("\nPress Q to exit or N for new game.");
     }
 
     static public void Values()            //Draws the game board
     {
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Green;
-        
-        Console.WriteLine("\n\n\tNumber of attempts ");
+
+        Console.WriteLine("\n\n\tNumber of attempts: ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.WriteLine("\n\t\t" + moves);
         Console.ForegroundColor = ConsoleColor.White;
@@ -268,7 +268,7 @@ class DigitGame
         {
             InitializeEasy();
         }
-        else if (modeChoice.Key==ConsoleKey.H)
+        else if (modeChoice.Key == ConsoleKey.H)
         {
             InitializeHard();
         }
@@ -279,14 +279,17 @@ class DigitGame
         Console.ForegroundColor = ConsoleColor.Green;
         string title = System.IO.File.ReadAllText(@"..\..\Images\Title.txt");
         Console.WriteLine(title);                           //Welcome screen
-        Console.ForegroundColor = ConsoleColor.DarkGray;    // Rules
-        Console.WriteLine("Game Rules:\nArrange the numbers from 0-8 in right order by pressing the arrow keys.");
-        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine();
-        Console.WriteLine("Please, Enter your name:");
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Red;    // Rules
+        Console.WriteLine("Game Rules:\nArrange the numbers from 0-8 in the right order by pressing the arrow keys!");
+        Console.WriteLine();
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("Please, enter your name: ");
         Console.ForegroundColor = ConsoleColor.Red;
         Name = Console.ReadLine();
-        Console.WriteLine("Press E for easy game and H for hard mode.");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Press E for an easy game and H for hard mode.");
         Choise();                                            //Reads the player's choice for level - Easy, Hard
         Values();                                           //Draws the game board
         Keys();                                              // Reads player's input
